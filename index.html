@@ -1,383 +1,536 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galeria de Personagens</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --primary: #ff79c6;
-  --secondary: #ffb3d9;
-  --bg-dark: #1a1a2e;
-  --bg-light: #f9f9f9;
-  --text-dark: #1a1a2e;
-  --text-light: #fff;
+  <meta charset="UTF-8">
+  <title>Galeria de Personagens</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>.comments-container {
+  background-color: #2e2e3e; /* tom escuro para combinar */
+  border: 2px solid #ff79c6; /* borda rosa/rubi */
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 14px;
+  color: #ddd;
+  font-size: 14px;
+  <style>/* estilos básicos para os comentários */
+.comments-container {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #1f1f2f;
+  border-radius: 8px;
+  color: #ddd;
+  font-size: 14px;
 }
-body {
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background-color:var(--bg-dark);
-  color:var(--text-light);
-  transition: background-color 0.5s, color 0.5s;
+.comment {
+  margin-bottom: 8px;
+  padding: 6px;
+  border-bottom: 1px solid #333;
 }
-body.light {
-  background-color:var(--bg-light);
-  color:var(--text-dark);
+.comment-input {
+  width: 100%;
+  padding: 6px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: none;
+  background-color: #2a2a3d;
+  color: #fff;
 }
-header {
-  text-align:center;
-  padding:30px 10px 10px 10px;
+.comment-submit {
+  margin-top: 6px;
+  padding: 8px 12px;
+  background-color: #ff79c6;
+  border: none;
+  color: #1a1a2e;
+  border-radius: 6px;
+  cursor: pointer;
 }
-header h1 {
-  font-size:3em;
-  font-weight:700;
-  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  text-shadow:0 0 5px var(--primary),0 0 10px var(--primary);
-  animation: neonGlow 2s ease-in-out infinite alternate;
+.comment-submit:hover {
+  background-color: #ffb3d9;
+  }
 }
-@keyframes neonGlow {
-  0%,100%{text-shadow:0 0 5px var(--primary),0 0 10px var(--primary);}
-  50%{text-shadow:0 0 15px var(--primary),0 0 25px var(--secondary);}
+
+.comment {
+  background-color: #1a1a2e;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 8px;
+  box-shadow: 0 4px 10px rgba(255,121,198,0.3);
 }
-.mode-toggle {
-  display:inline-block;
-  margin-top:10px;
-  padding:8px 16px;
-  background:var(--primary);
-  color:var(--text-dark);
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  font-weight:600;
+
+.comment-input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid #444;
+  border-radius: 8px;
+  background-color: #1a1a2e;
+  color: #fff;
+  font-size: 14px;
+  transition: border-color 0.3s;
 }
-.mode-toggle:hover{
-  background:var(--secondary);
+
+.comment-input:focus {
+  border-color: #ff79c6;
+  outline: none;
 }
-.filtros {
-  text-align:center;
-  margin:20px 0;
+
+.comment-submit {
+  margin-top: 8px;
+  padding: 10px 16px;
+  background-color: #ff79c6;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
 }
-.filtros button {
-  background-color: rgba(68,68,68,0.8);
-  color:#fff;
-  border:none;
-  padding:10px 15px;
-  margin:5px;
-  border-radius:15px;
-  cursor:pointer;
-  font-weight:600;
-  transition:0.3s;
+
+.comment-submit:hover {
+  background-color: #ffb3d9;
 }
-.filtros button:hover,.filtros button.active {
-  background-color: var(--primary);
-  color: var(--text-dark);
-  box-shadow:0 0 10px var(--primary);
-}
-.gallery-personagens {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:25px;
-  padding:0 20px 50px 20px;
-}
-.personagem {
-  background: rgba(45,0,70,0.75);
-  border:2px solid rgba(255,121,198,0.4);
-  border-radius:18px;
-  overflow:hidden;
-  position:relative;
-  cursor:pointer;
-  transition:transform 0.3s, box-shadow 0.3s;
-}
-.personagem:hover {
-  transform:scale(1.05);
-  box-shadow:0 0 35px rgba(255,121,198,0.7);
-}
-.personagem img {
-  width:100%;
-  display:block;
-  transition:transform 0.4s;
-}
-.personagem:hover img {
-  transform:scale(1.08);
-}
-.personagem h2{
-  text-align:center;
-  color: var(--primary);
-  margin:10px 0 5px;
-}
-.personagem p{
-  text-align:center;
-  font-size:13px;
-  color:#ddd;
-  padding:0 10px 10px 10px;
-}
-.fav-btn{
-  display:block;
-  margin:10px auto;
-  padding:8px 16px;
-  background:var(--primary);
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  font-weight:bold;
-  transition:0.3s;
-}
-.fav-btn:hover{
-  background: var(--secondary);
-  transform:scale(1.1);
-  box-shadow:0 0 15px var(--primary);
-}
-.comments-container{
-  margin:10px 10px 10px 10px;
-  padding:10px;
-  border-radius:12px;
-  background-color: rgba(30,30,50,0.8);
-  color:#ddd;
-  font-size:14px;
-  max-height:150px;
-  overflow-y:auto;
-}
-.comment{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:6px;
-  padding:6px;
-  border-bottom:1px solid #333;
-}
-.comment-input{
-  width:calc(100% - 20px);
-  padding:6px 10px;
-  margin:6px 10px 0 10px;
-  border-radius:6px;
-  border:none;
-  background-color:rgba(30,30,50,0.9);
-  color:#fff;
-}
-.comment-submit{
-  display:block;
-  margin:8px auto 10px auto;
-  padding:8px 12px;
-  background-color:var(--primary);
-  border:none;
-  color:var(--text-dark);
-  border-radius:6px;
-  font-weight:600;
-  cursor:pointer;
-}
-.comment-submit:hover{
-  background-color: var(--secondary);
-}
-.expanded-card{
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:80%;
-  max-width:800px;
-  background:rgba(30,0,60,0.95);
-  border-radius:20px;
-  z-index:9999;
-  padding:20px;
-  display:none;
-  animation: fadeIn 0.3s ease forwards;
-}
-.expanded-card img{
-  width:100%;
-  border-radius:15px;
-}
-.expanded-card h2{
-  margin:10px 0;
-  text-align:center;
-}
-.expanded-card p{
-  font-size:14px;
-  text-align:center;
-  color:#ddd;
-}
-.close-btn{
-  position:absolute;
-  top:15px;
-  right:20px;
-  cursor:pointer;
-  background:none;
-  border:none;
-  font-size:24px;
-  color:#fff;
-}
-@keyframes fadeIn{
-  0%{opacity:0;}
-  100%{opacity:1;}
-}
-</style>
-</head>
+    body {
+      background-color: #1a1a2e;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      padding: 20px;
+      margin: 0;
+    }
+    h1 {
+      text-align: center;
+      color: #ff79c6;
+      margin-bottom: 20px;
+      font-size: 2em;
+    }
+    .filtros {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .filtros button {
+      background-color: #444;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .filtros button:hover,
+    .filtros button.active {
+      background-color: #ff79c6;
+      color: #1a1a2e;
+    }
+    .gallery-personagens {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+    .personagem {
+      background-color: #2e2e3e;
+      border-radius: 20px;
+      width: 250px;
+      text-align: center;
+      padding: 15px;
+      box-shadow: 0 0 20px rgba(255, 121, 198, 0.3);
+      position: relative;
+      transition: transform 0.2s;
+    }
+    .personagem:hover {
+      transform: scale(1.05);
+    }
+    .personagem img {
+      width: 100%;
+      border-radius: 15px;
+      display: block;
+    }
+    .personagem h2 {
+      margin: 10px 0 5px;
+      color: #ff79c6;
+    }
+    .personagem p {
+      font-size: 13px;
+      color: #ddd;
+    }
+    .fav-btn {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #ff79c6;
+      color: #1a1a2e;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .fav-btn:hover {
+      background-color: #ffb3d9;
+    }
+  </style>
+</head> 
 <body>
-<header>
   <h1>Galeria de Personagens</h1>
-  <button class="mode-toggle">Modo Claro</button>
-</header>
 
-<div class="filtros">
-  <button data-filter="all" class="active">Todos</button>
-  <button data-filter="dan-da-dan">Dan da Dan</button>
-  <button data-filter="jujutsu-kaisen">Jujutsu Kaisen</button>
-  <button data-filter="onepunch">One Punch Man</button>
-</div>
-
-<div class="gallery-personagens">
-  <!-- Aqui entra cada card de personagem, exemplo: -->
-  <div class="personagem" data-anime="dan-da-dan" data-id="momo-ayase">
-    <img src="https://i.postimg.cc/c1jx5ZKj/Picsart-25-11-03-00-33-27-851.jpg" alt="Momo Ayase">
-    <h2>Momo Ayase</h2>
-    <p>Garota psíquica com braços invisíveis, central no conflito sobrenatural.</p>
-    <button class="fav-btn">♡ Favoritar</button>
+  <!-- Filtros -->
+  <div class="filtros">
+    <button data-filter="all" class="active">Todos</button>
+    <button data-filter="dan-da-dan">Dan da Dan</button>
+    <button data-filter="jujutsu-kaisen">Jujutsu Kaisen</button>
+    <button data-filter="one-piece">One Piece</button>
+    <button data-filter="onepunch">One Punch Man</button>
   </div>
-  <div class="personagem" data-anime="dan-da-dan" data-id="jin-enjoji">
-    <img src="https://i.postimg.cc/wTyv63Kc/Picsart-25-11-03-00-32-36-858.jpg" alt="Jin Enjoji">
-    <h2>Jin Enjoji</h2>
-    <p>Amigo da Momo, possuído pelo espírito Mau Olhado.</p>
-    <button class="fav-btn">♡ Favoritar</button>
+
+  <!-- Galeria -->
+  <div class="gallery-personagens">
+    <!-- Dan da Dan -->
+    <div class="personagem" data-anime="dan-da-dan" data-id="momo-ayase">
+      <img src="https://i.postimg.cc/c1jx5ZKj/Picsart-25-11-03-00-33-27-851.jpg" alt="Momo Ayase">
+      <h2>Momo Ayase</h2>
+      <p>Poderes psíquicos, braços invisíveis. Papel central entre o sobrenatural e o científico.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="jin-enjoji">
+      <img src="https://i.postimg.cc/wTyv63Kc/Picsart-25-11-03-00-32-36-858.jpg" alt="Jin Enjoji">
+      <h2>Jin Enjoji</h2>
+      <p>Amigo de infância da Momo, possuído pelo espírito Mau Olhado, que o liga ao mundo sobrenatural.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="enenra">
+      <img src="https://i.postimg.cc/3NwkjZcR/Picsart-25-11-03-00-36-00-583.jpg" alt="Enenra">
+      <h2>Enenra</h2>
+      <p>Yōkai da fumaça que pode tornar-se intangível e atacar pelo invisível.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="mau-olhado">
+      <img src="https://i.postimg.cc/jqGT4X9J/Picsart-25-11-03-00-40-45-978.jpg" alt="Mau Olhado">
+      <h2>Mau Olhado</h2>
+      <p>Espírito vingativo que habita o corpo de Jiji e comanda maldições e almas dentro de sua casa demoníaca.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="reiko-kashima">
+      <img src="https://i.postimg.cc/4dQcQy4K/Picsart-25-11-03-00-37-03-585.jpg" alt="Reiko Kashima">
+      <h2>Reiko Kashima</h2>
+      <p>Yōkai dos espelhos que pode prender inimigos em dimensões refletidas e atacar através de superfícies de vidro.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="unji-zuma">
+      <img src="https://i.postimg.cc/3rZjgSdR/Picsart-25-11-03-00-41-38-577.jpg" alt="Unji Zuma">
+      <h2>Unji Zuma</h2>
+      <p>Líder de gangue que adquire poderes do yokai Umbrella Boy e entra em missão para vencer o jogo amaldiçoado Danmanra.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="rin-sawaki">
+      <img src="https://i.postimg.cc/YCPzvvj8/Picsart-25-11-03-00-35-03-843.jpg" alt="Rin Sawaki">
+      <h2>Rin Sawaki</h2>
+      <p>Manipula gravidade ao cantar. Estudante exemplar que se envolve nos casos sobrenaturais.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="count-saint-germain">
+      <img src="https://i.postimg.cc/90BB01qr/Picsart-25-11-03-00-39-41-882.jpg" alt="Count Saint-Germain">
+      <h2>Count Saint-Germain</h2>
+      <p>Nobre colecionador do paranormal. Busca reunir poderes de yōkai, alienígenas e artefatos para alcançar o supremo.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="vamola">
+      <img src="https://i.postimg.cc/YCCdGcR2/Picsart-25-11-03-00-34-16-310.jpg" alt="Vamola">
+      <h2>Vamola</h2>
+      <p>Última sobrevivente da raça suméria. Pilota uma armadura poderosa e luta ao lado dos protagonistas.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="aira-shiratori">
+      <img src="https://i.postimg.cc/mDHXLQw7/Picsart-25-11-03-00-38-41-747.jpg" alt="Aira Shiratori">
+      <h2>Aira Shiratori</h2>
+      <p>Estudante com habilidades yokai ligadas à acrobacia e combate. Inicialmente rival, une-se aos protagonistas.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="okarun">
+      <img src="https://i.postimg.cc/65NSQ1FN/Picsart-25-11-03-00-28-53-418.jpg" alt="Okarun">
+      <h2>Okarun</h2>
+      <p>Possui habilidades de combate e apoio, mostrando coragem em batalhas sobrenaturais.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="koki-yukishiro">
+      <img src="https://i.postimg.cc/SxdH37Tx/Picsart-25-11-03-00-25-39-215.jpg" alt="Kōki Yukishiro">
+      <h2>Kōki Yukishiro</h2>
+      <p>Aluna que comanda pequenos seres chamados pygmies, usando-os estrategicamente contra adversários.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="dan-da-dan" data-id="jiji-mau-olhado">
+      <img src="https://i.postimg.cc/Qtw2S86H/Picsart-25-11-03-00-37-52-262.jpg" alt="Jiji + Mau Olhado Fusão">
+      <h2>Jiji & Mau Olhado</h2>
+      <p>Fusão poderosa que combina Jiji e o Mau Olhado, dominando maldições e manipulando almas.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <!-- Jujutsu Kaisen -->
+    <div class="personagem" data-anime="jujutsu-kaisen" data-id="itadori-yuuji">
+      <img src="https://i.postimg.cc/Gmwwwmxm/29-Sem-Titulo-20251102234830.png" alt="Itadori Yuuji">
+      <h2>Itadori Yuuji</h2>
+      <p>Estudante que ingere Sukuna e luta contra maldições. Corajoso e leal aos amigos.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+
+    <div class="personagem" data-anime="jujutsu-kaisen" data-id="hiromi-higuruma">
+      <img src="https://i.postimg.cc/TYL8yD30/Picsart-25-11-03-00-31-33-155.jpg" alt="Hiromi Higuruma">
+      <h2>Hiromi Higuruma</h2>
+      <p>Possui técnica amaldiçoada que cria uma “corte” sobrenatural, julgando adversários com martelo mutável.</p>
+      <button class="fav-btn">♡ Favoritar</button>
+    </div>
+    
+  <div class="personagem" data-anime="onepunch" data-id="garou">
+  <img src="https://i.postimg.cc/JhWWCzmr/Picsart-25-11-03-00-23-50-498.jpg" alt="Garou">
+  <h2>Garou</h2>
+  <p>O Caçador de Heróis. Especialista em artes marciais, força e agilidade incríveis, sempre desafiando heróis e buscando evoluir como lutador.</p>
+  <button class="fav-btn">♡ Favoritar</button>
   </div>
-  <!-- Continue aqui todos os 16 personagens de Dan da Dan -->
-  <!-- Jujutsu Kaisen -->
-  <div class="personagem" data-anime="jujutsu-kaisen" data-id="choso">
-    <img src="https://i.postimg.cc/XYD6DQt9/choso.jpg" alt="Choso">
-    <h2>Choso</h2>
-    <p>Maldição que protege os irmãos, habilidoso em sangue manipulação.</p>
-    <button class="fav-btn">♡ Favoritar</button>
-  </div>
-  <div class="personagem" data-anime="jujutsu-kaisen" data-id="gojo">
-    <img src="https://i.postimg.cc/DyPRC0PZ/gojo.jpg" alt="Gojo">
-    <h2>Gojo Satoru</h2>
-    <p>Professor mais forte da Jujutsu Kaisen, domínio do infinito.</p>
-    <button class="fav-btn">♡ Favoritar</button>
-  </div>
-  <!-- Continue Yuta, Nanami, Inumaki, Sukuna, Megumi, Toji -->
-</div>
 
-<div class="expanded-card" id="expandedCard">
-  <button class="close-btn">✖</button>
-  <img src="" alt="Expandido" id="expandedImg">
-  <h2 id="expandedName"></h2>
-  <p id="expandedDesc"></p>
-</div>
-
-<script>
-const modeToggle=document.querySelector('.mode-toggle');
-modeToggle.addEventListener('click',()=>{
-  document.body.classList.toggle('light');
-  modeToggle.textContent=document.body.classList.contains('light')?'Modo Escuro':'Modo Claro';
-});
-
-// Filtros
-const filterButtons=document.querySelectorAll('.filtros button');
-const personagens=document.querySelectorAll('.personagem');
-filterButtons.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    filterButtons.forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter=btn.getAttribute('data-filter');
-    personagens.forEach(p=>{
-      p.style.display=(filter==='all'||p.getAttribute('data-anime')===filter)?'block':'none';
-    });
-  });
-});
-
-// Favoritos
-document.querySelectorAll('.fav-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const card=btn.closest('.personagem');
-    const id=card.getAttribute('data-id');
-    let favs=JSON.parse(localStorage.getItem('favs'))||[];
-    if(favs.includes(id)){
-      favs=favs.filter(f=>f!==id);
-      btn.textContent='♡ Favoritar';
-    }else{
-      favs.push(id);
-      btn.textContent='❤️ Favoritado';
-    }
-    localStorage.setItem('favs',JSON.stringify(favs));
-  });
-});
-// Carregar favoritos
-window.addEventListener('DOMContentLoaded',()=>{
-  const favs=JSON.parse(localStorage.getItem('favs'))||[];
-  document.querySelectorAll('.personagem').forEach(card=>{
-    const id=card.getAttribute('data-id');
-    const btn=card.querySelector('.fav-btn');
-    if(favs.includes(id)) btn.textContent='❤️ Favoritado';
-  });
-});
-
-// Expansão ao clicar
-const expandedCard=document.getElementById('expandedCard');
-const expandedImg=document.getElementById('expandedImg');
-const expandedName=document.getElementById('expandedName');
-const expandedDesc=document.getElementById('expandedDesc');
-personagens.forEach(card=>{
-  card.addEventListener('click',e=>{
-    if(!e.target.classList.contains('fav-btn')){ // Não expande se clicar no botão
-      expandedCard.style.display='block';
-      expandedImg.src=card.querySelector('img').src;
-      expandedName.textContent=card.querySelector('h2').textContent;
-      expandedDesc.textContent=card.querySelector('p').textContent;
-    }
-  });
-});
-document.querySelector('.close-btn').addEventListener('click',()=>{
-  expandedCard.style.display='none';
-});
-
-// Comentários
-personagens.forEach(card=>{
-  const id=card.getAttribute('data-id');
-  const container=document.createElement('div');
-  container.classList.add('comments-container');
-  card.appendChild(container);
-  const textarea=document.createElement('textarea');
-  textarea.classList.add('comment-input');
-  textarea.placeholder='Deixe um comentário...';
-  card.appendChild(textarea);
-  const btn=document.createElement('button');
-  btn.textContent='Enviar comentário';
-  btn.classList.add('comment-submit');
-  card.appendChild(btn);
-
-  const renderComments=()=>{
-    const key='comments_'+id;
-    let comms=JSON.parse(localStorage.getItem(key))||[];
-    container.innerHTML='';
-    comms.forEach((c,i)=>{
-      const div=document.createElement('div');
-      div.classList.add('comment');
-      div.textContent=c;
-      const del=document.createElement('button');
-      del.textContent='❌';
-      del.style.marginLeft='8px';
-      del.addEventListener('click',()=>{
-        comms.splice(i,1);
-        localStorage.setItem(key,JSON.stringify(comms));
-        renderComments();
+  <script>
+    // favoritos
+    window.addEventListener('DOMContentLoaded', () => {
+      const favs = JSON.parse(localStorage.getItem('favs')) || [];
+      document.querySelectorAll('.personagem').forEach(card => {
+        const id = card.getAttribute('data-id');
+        const btn = card.querySelector('.fav-btn');
+        if (favs.includes(id)) btn.textContent = '❤️ Favoritado';
       });
-      div.appendChild(del);
-      container.appendChild(div);
+
+      document.querySelectorAll('.fav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const card = btn.closest('.personagem');
+          const id = card.getAttribute('data-id');
+          let favs = JSON.parse(localStorage.getItem('favs')) || [];
+          if (favs.includes(id)) {
+            favs = favs.filter(f => f !== id);
+            btn.textContent = '♡ Favoritar';
+          } else {
+            favs.push(id);
+            btn.textContent = '❤️ Favoritado';
+          }
+          localStorage.setItem('favs', JSON.stringify(favs));
+        });
+      });
+
+      // filtros
+      const buttons = document.querySelectorAll('.filtros button');
+      const personagens = document.querySelectorAll('.personagem');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.getAttribute('data-filter');
+          personagens.forEach(p => {
+            p.style.display =
+              filter === 'all' || p.getAttribute('data-anime') === filter
+                ? 'block'
+                : 'none';
+          });
+        });
+      });
     });
-  };
-  renderComments();
-  btn.addEventListener('click',()=>{
-    const key='comments_'+id;
-    let comms=JSON.parse(localStorage.getItem(key))||[];
-    if(textarea.value.trim()!==''){
-      comms.push(textarea.value.trim());
-      localStorage.setItem(key,JSON.stringify(comms));
-      textarea.value='';
-      renderComments();
+  </script>
+    <script>
+  <script>
+  <!-- seu script de favoritos e filtros vem aqui -->
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.personagem').forEach(card => {
+        const id = card.getAttribute('data-id');
+
+        // cria container de comentários se não existir
+        let container = card.querySelector('.comments-container');
+        if (!container) {
+          container = document.createElement('div');
+          container.classList.add('comments-container');
+          card.appendChild(container);
+        }
+
+        // cria textarea se não existir
+        let textarea = card.querySelector('.comment-input');
+        if (!textarea) {
+          textarea = document.createElement('textarea');
+          textarea.placeholder = 'Deixe um comentário…';
+          textarea.classList.add('comment-input');
+          card.appendChild(textarea);
+        }
+
+        // cria botão se não existir
+        let btn = card.querySelector('.comment-submit');
+        if (!btn) {
+          btn = document.createElement('button');
+          btn.textContent = 'Enviar comentário';
+          btn.classList.add('comment-submit');
+          card.appendChild(btn);
+        }
+
+        // função pra renderizar comentários
+        const renderComments = () => {
+          const key = 'comments_' + id;
+          let comms = JSON.parse(localStorage.getItem(key)) || [];
+          container.innerHTML = '';
+          comms.forEach((c, index) => {
+            const div = document.createElement('div');
+            div.classList.add('comment');
+            div.textContent = c;
+
+            // botão de apagar
+            const btnDel = document.createElement('button');
+            btnDel.textContent = '❌';
+            btnDel.style.marginLeft = '8px';
+            btnDel.addEventListener('click', () => {
+              comms.splice(index, 1);
+              localStorage.setItem(key, JSON.stringify(comms));
+              renderComments();
+            });
+
+            div.appendChild(btnDel);
+            container.appendChild(div);
+          });
+        };
+
+        renderComments();
+
+        // clique no botão enviar
+        btn.addEventListener('click', () => {
+          const key = 'comments_' + id;
+          let comms = JSON.parse(localStorage.getItem(key)) || [];
+          if (textarea.value.trim() !== '') {
+            comms.push(textarea.value.trim());
+            localStorage.setItem(key, JSON.stringify(comms));
+            textarea.value = '';
+            renderComments();
+          }
+        });
+      });
+    });
+  </script>
+    <script>
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.personagem').forEach(card => {
+    const id = card.getAttribute('data-id');
+
+    // cria container de comentários se não existir
+    let container = card.querySelector('.comments-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.classList.add('comments-container');
+      card.appendChild(container);
     }
+
+    // cria textarea se não existir
+    let textarea = card.querySelector('.comment-input');
+    if (!textarea) {
+      textarea = document.createElement('textarea');
+      textarea.placeholder = 'Deixe um comentário…';
+      textarea.classList.add('comment-input');
+      card.appendChild(textarea);
+    }
+
+    // cria botão se não existir
+    let btn = card.querySelector('.comment-submit');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.textContent = 'Enviar comentário';
+      btn.classList.add('comment-submit');
+      card.appendChild(btn);
+    }
+
+    // função pra renderizar comentários
+    const renderComments = () => {
+      const key = 'comments_' + id;
+      let comms = JSON.parse(localStorage.getItem(key)) || [];
+      container.innerHTML = '';
+      comms.forEach((c, index) => {
+        const div = document.createElement('div');
+        div.classList.add('comment');
+        div.textContent = c;
+
+        // botão de apagar comentário
+        const btnDel = document.createElement('button');
+        btnDel.textContent = '❌';
+        btnDel.style.marginLeft = '8px';
+        btnDel.addEventListener('click', () => {
+          comms.splice(index, 1);
+          localStorage.setItem(key, JSON.stringify(comms));
+          renderComments();
+        });
+
+        div.appendChild(btnDel);
+        container.appendChild(div);
+      });
+    };
+
+    renderComments();
+
+    // enviar comentário
+    btn.addEventListener('click', () => {
+      const key = 'comments_' + id;
+      let comms = JSON.parse(localStorage.getItem(key)) || [];
+      if (textarea.value.trim() !== '') {
+        comms.push(textarea.value.trim());
+        localStorage.setItem(key, JSON.stringify(comms));
+        textarea.value = '';
+        renderComments();
+      }
+    });
   });
 });
-</script>
+    </script>
 </body>
 </html>
+<script>
+  // Animação de entrada dos cards
+  window.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.personagem');
+    cards.forEach((card, index) => {
+      card.style.opacity = 0;
+      card.style.transform = 'translateY(30px)';
+      setTimeout(() => {
+        card.style.transition = 'all 0.6s ease-out';
+        card.style.opacity = 1;
+        card.style.transform = 'translateY(0)';
+      }, index * 100); // efeito cascata
+    });
+
+    // Hover animado nos cards
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'scale(1.06)';
+        card.style.boxShadow = '0 0 25px rgba(255,121,198,0.6)';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'scale(1)';
+        card.style.boxShadow = '0 0 20px rgba(255,121,198,0.3)';
+      });
+    });
+
+    // Pulsar botão de favoritar
+    const favButtons = document.querySelectorAll('.fav-btn');
+    favButtons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'all 0.3s ease';
+        btn.style.transform = 'scale(1.1)';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'scale(1)';
+      });
+    });
+  });
+</script>
+</body>
+  </html>
+      
