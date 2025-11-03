@@ -346,78 +346,6 @@
   <script>
   <!-- seu script de favoritos e filtros vem aqui -->
 
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.personagem').forEach(card => {
-        const id = card.getAttribute('data-id');
-
-        // cria container de comentários se não existir
-        let container = card.querySelector('.comments-container');
-        if (!container) {
-          container = document.createElement('div');
-          container.classList.add('comments-container');
-          card.appendChild(container);
-        }
-
-        // cria textarea se não existir
-        let textarea = card.querySelector('.comment-input');
-        if (!textarea) {
-          textarea = document.createElement('textarea');
-          textarea.placeholder = 'Deixe um comentário…';
-          textarea.classList.add('comment-input');
-          card.appendChild(textarea);
-        }
-
-        // cria botão se não existir
-        let btn = card.querySelector('.comment-submit');
-        if (!btn) {
-          btn = document.createElement('button');
-          btn.textContent = 'Enviar comentário';
-          btn.classList.add('comment-submit');
-          card.appendChild(btn);
-        }
-
-        // função pra renderizar comentários
-        const renderComments = () => {
-          const key = 'comments_' + id;
-          let comms = JSON.parse(localStorage.getItem(key)) || [];
-          container.innerHTML = '';
-          comms.forEach((c, index) => {
-            const div = document.createElement('div');
-            div.classList.add('comment');
-            div.textContent = c;
-
-            // botão de apagar
-            const btnDel = document.createElement('button');
-            btnDel.textContent = '❌';
-            btnDel.style.marginLeft = '8px';
-            btnDel.addEventListener('click', () => {
-              comms.splice(index, 1);
-              localStorage.setItem(key, JSON.stringify(comms));
-              renderComments();
-            });
-
-            div.appendChild(btnDel);
-            container.appendChild(div);
-          });
-        };
-
-        renderComments();
-
-        // clique no botão enviar
-        btn.addEventListener('click', () => {
-          const key = 'comments_' + id;
-          let comms = JSON.parse(localStorage.getItem(key)) || [];
-          if (textarea.value.trim() !== '') {
-            comms.push(textarea.value.trim());
-            localStorage.setItem(key, JSON.stringify(comms));
-            textarea.value = '';
-            renderComments();
-          }
-        });
-      });
-    });
-  </script>
     <script>
 
 </body>
@@ -436,15 +364,30 @@
       }, index * 100); // efeito cascata
     });
 
-    // Hover animado nos cards
+<style>
+  /* Zoom ativo ao clicar */
+  .personagem.zoomed {
+    transform: scale(1.1); /* aumenta 10% */
+    box-shadow: 0 0 30px rgba(255,121,198,0.7);
+    z-index: 10;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+</style>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.personagem');
+
     cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'scale(1.06)';
-        card.style.boxShadow = '0 0 25px rgba(255,121,198,0.6)';
+      card.addEventListener('click', () => {
+        // remove zoom de todos
+        cards.forEach(c => c.classList.remove('zoomed'));
+        // adiciona zoom ao clicado
+        card.classList.add('zoomed');
       });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'scale(1)';
-        card.style.boxShadow = '0 0 20px rgba(255,121,198,0.3)';
+    });
+  });
+</script>';
       });
     });
 
