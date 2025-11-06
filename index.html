@@ -4,91 +4,7 @@
   <meta charset="UTF-8">
   <title>Galeria de Personagens</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>.comments-container {
-  background-color: #2e2e3e; /* tom escuro para combinar */
-  border: 2px solid #ff79c6; /* borda rosa/rubi */
-  border-radius: 12px;
-  padding: 12px;
-  margin-top: 14px;
-  color: #ddd;
-  font-size: 14px;
-  <style>/* estilos básicos para os comentários */
-.comments-container {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #1f1f2f;
-  border-radius: 8px;
-  color: #ddd;
-  font-size: 14px;
-}
-.comment {
-  margin-bottom: 8px;
-  padding: 6px;
-  border-bottom: 1px solid #333;
-}
-.comment-input {
-  width: 100%;
-  padding: 6px;
-  margin-top: 10px;
-  border-radius: 6px;
-  border: none;
-  background-color: #2a2a3d;
-  color: #fff;
-}
-.comment-submit {
-  margin-top: 6px;
-  padding: 8px 12px;
-  background-color: #ff79c6;
-  border: none;
-  color: #1a1a2e;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.comment-submit:hover {
-  background-color: #ffb3d9;
-  }
-}
-
-.comment {
-  background-color: #1a1a2e;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  padding: 8px;
-  box-shadow: 0 4px 10px rgba(255,121,198,0.3);
-}
-
-.comment-input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border: 2px solid #444;
-  border-radius: 8px;
-  background-color: #1a1a2e;
-  color: #fff;
-  font-size: 14px;
-  transition: border-color 0.3s;
-}
-
-.comment-input:focus {
-  border-color: #ff79c6;
-  outline: none;
-}
-
-.comment-submit {
-  margin-top: 8px;
-  padding: 10px 16px;
-  background-color: #ff79c6;
-  color: #1a1a2e;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s;
-}
-
-.comment-submit:hover {
-  background-color: #ffb3d9;
-}
+  <style>
     body {
       background-color: #1a1a2e;
       color: #fff;
@@ -135,11 +51,11 @@
       text-align: center;
       padding: 15px;
       box-shadow: 0 0 20px rgba(255, 121, 198, 0.3);
-      position: relative;
-      transition: transform 0.2s;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
     .personagem:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255,121,198,0.6);
     }
     .personagem img {
       width: 100%;
@@ -154,26 +70,11 @@
       font-size: 13px;
       color: #ddd;
     }
-    .fav-btn {
-      margin-top: 10px;
-      padding: 8px 12px;
-      background-color: #ff79c6;
-      color: #1a1a2e;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.2s;
-    }
-    .fav-btn:hover {
-      background-color: #ffb3d9;
-    }
   </style>
-</head> 
+</head>
 <body>
   <h1>Galeria de Personagens</h1>
 
-  <!-- Filtros -->
   <div class="filtros">
     <button data-filter="all" class="active">Todos</button>
     <button data-filter="dan-da-dan">Dan da Dan</button>
@@ -182,15 +83,14 @@
     <button data-filter="onepunch">One Punch Man</button>
   </div>
 
-  <!-- Galeria -->
   <div class="gallery-personagens">
     <!-- Dan da Dan -->
     <div class="personagem" data-anime="dan-da-dan" data-id="momo-ayase">
       <img src="https://i.postimg.cc/c1jx5ZKj/Picsart-25-11-03-00-33-27-851.jpg" alt="Momo Ayase">
       <h2>Momo Ayase</h2>
       <p>Poderes psíquicos, braços invisíveis. Papel central entre o sobrenatural e o científico.</p>
-</div>
-      
+    </div>
+
     <div class="personagem" data-anime="dan-da-dan" data-id="jin-enjoji">
       <img src="https://i.postimg.cc/wTyv63Kc/Picsart-25-11-03-00-32-36-858.jpg" alt="Jin Enjoji">
       <h2>Jin Enjoji</h2>
@@ -277,47 +177,32 @@
     </div>
 
     <div class="personagem" data-anime="jujutsu-kaisen" data-id="choso">
-  <img src="https://i.postimg.cc/s2HCXJ99/Picsart-25-11-03-16-40-22-175.jpg" alt="Choso">
-  <h2>Choso</h2>
-  <p>Maldição da série que domina a manipulação de sangue; um membro dos Death Painting Wombs com vínculo intenso aos irmãos.</p>
+      <img src="https://i.postimg.cc/s2HCXJ99/Picsart-25-11-03-16-40-22-175.jpg" alt="Choso">
+      <h2>Choso</h2>
+      <p>Maldição da série que domina a manipulação de sangue; um membro dos Death Painting Wombs com vínculo intenso aos irmãos.</p>
     </div>
-    
-  <div class="personagem" data-anime="onepunch" data-id="garou">
-  <img src="https://i.postimg.cc/JhWWCzmr/Picsart-25-11-03-00-23-50-498.jpg" alt="Garou">
-  <h2>Garou</h2>
-  <p>O Caçador de Heróis. Especialista em artes marciais, força e agilidade incríveis, sempre desafiando heróis e buscando evoluir como lutador.</p>
-</div>
+
+    <!-- One Piece -->
+    <div class="personagem" data-anime="one-piece" data-id="roronoa-zoro">
+      <img src="https://i.postimg.cc/c1jx5ZKj/Picsart-25-11-03-00-33-27-851.jpg" alt="Roronoa Zoro">
+      <h2>Roronoa Zoro</h2>
+      <p>Espadachim dos Chapéus de Palha. Mestre no estilo Santoryu, empunha três espadas com determinação inabalável e um senso de honra que corta o próprio destino.</p>
+    </div>
+
+    <!-- One Punch Man -->
+    <div class="personagem" data-anime="onepunch" data-id="garou">
+      <img src="https://i.postimg.cc/JhWWCzmr/Picsart-25-11-03-00-23-50-498.jpg" alt="Garou">
+      <h2>Garou</h2>
+      <p>O Caçador de Heróis. Especialista em artes marciais, força e agilidade incríveis, sempre desafiando heróis e buscando evoluir como lutador.</p>
+    </div>
+
   </div>
 
   <script>
-    // favoritos
-    window.addEventListener('DOMContentLoaded', () => {
-      const favs = JSON.parse(localStorage.getItem('favs')) || [];
-      document.querySelectorAll('.personagem').forEach(card => {
-        const id = card.getAttribute('data-id');
-        const btn = card.querySelector('.fav-btn');
-        if (favs.includes(id)) btn.textContent = '❤️ Favoritado';
-      });
-
-      document.querySelectorAll('.fav-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const card = btn.closest('.personagem');
-          const id = card.getAttribute('data-id');
-          let favs = JSON.parse(localStorage.getItem('favs')) || [];
-          if (favs.includes(id)) {
-            favs = favs.filter(f => f !== id);
-            btn.textContent = '♡ Favoritar';
-          } else {
-            favs.push(id);
-            btn.textContent = '❤️ Favoritado';
-          }
-          localStorage.setItem('favs', JSON.stringify(favs));
-        });
-      });
-
-      // filtros
+    document.addEventListener('DOMContentLoaded', () => {
       const buttons = document.querySelectorAll('.filtros button');
       const personagens = document.querySelectorAll('.personagem');
+
       buttons.forEach(btn => {
         btn.addEventListener('click', () => {
           buttons.forEach(b => b.classList.remove('active'));
@@ -333,81 +218,5 @@
       });
     });
   </script>
-    <script>
-  <script>
-  <!-- seu script de favoritos e filtros vem aqui -->
-
-    <script>
-
 </body>
 </html>
-<script>
-  // Animação de entrada dos cards
-  window.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.personagem');
-    cards.forEach((card, index) => {
-      card.style.opacity = 0;
-      card.style.transform = 'translateY(30px)';
-      setTimeout(() => {
-        card.style.transition = 'all 0.6s ease-out';
-        card.style.opacity = 1;
-        card.style.transform = 'translateY(0)';
-      }, index * 100); // efeito cascata
-    });
-
-
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.personagem');
-
-      });
-    });
-<script>
-    // Pulsar botão de favoritar
-    const favButtons = document.querySelectorAll('.fav-btn');
-    favButtons.forEach(btn => {
-      btn.addEventListener('mouseenter', () => {
-        btn.style.transition = 'all 0.3s ease';
-        btn.style.transform = 'scale(1.1)';
-      });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = 'scale(1)';
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.personagem');
-
-  cards.forEach(card => {
-    let x = 0, y = 0; // posição inicial
-    let dx = (Math.random() - 0.5) * 2; // velocidade horizontal aleatória
-    let dy = (Math.random() - 0.5) * 2; // velocidade vertical aleatória
-
-    setInterval(() => {
-      x += dx;
-      y += dy;
-      // limite máximo de movimento para não sair do grid
-      if(Math.abs(x) > 15) dx *= -1;
-      if(Math.abs(y) > 15) dy *= -1;
-      // aplica transformação
-      card.style.transform = `translate(${x}px, ${y}px) scale(1.02)`;
-    }, 50); // atualiza a cada 50ms
-  });
-});
-</script>
-    <script>
-  // Hover animado nos cards
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'scale(1.06)';
-        card.style.boxShadow = '0 0 25px rgba(255,121,198,0.6)';
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'scale(1)';
-        card.style.boxShadow = '0 0 20px rgba(255,121,198,0.3)';
-      });
-    });
-    </script>
-</body>
-  </html>
-
-  
