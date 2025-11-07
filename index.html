@@ -239,28 +239,16 @@
       }, index * 100);
     });
 
-    // efeito de movimento suave contínuo
+        // Hover animado nos cards
     cards.forEach(card => {
-      let offsetX = (Math.random() - 0.5) * 20;
-      let offsetY = (Math.random() - 0.5) * 20;
-      let dx = (Math.random() - 0.5) * 0.4;
-      let dy = (Math.random() - 0.5) * 0.4;
-      const maxOffset = 10;
-
-      function animate() {
-        offsetX += dx;
-        offsetY += dy;
-
-        if (Math.abs(offsetX) > maxOffset) dx *= -1;
-        if (Math.abs(offsetY) > maxOffset) dy *= -1;
-
-        card.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(1.02)`;
-        requestAnimationFrame(animate);
-      }
-
-      animate();
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'scale(1.06)';
+        card.style.boxShadow = '0 0 25px rgba(255,121,198,0.6)';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'scale(1)';
+        card.style.boxShadow = '0 0 20px rgba(255,121,198,0.3)';
+      });
     });
-  });
-</script>
 </body>
 </html>
