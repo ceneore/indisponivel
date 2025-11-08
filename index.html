@@ -182,12 +182,6 @@
       <p>Maldição da série que domina a manipulação de sangue; um membro dos Death Painting Wombs com vínculo intenso aos irmãos.</p>
     </div>
 
-<div class="personagem" data-anime="jujutsu-kaisen" data-id="satoru-gojo">
-  <img src="https://i.postimg.cc/8PKzpCkd/34-Sem-Titulo-20251107024300.png" alt="Satoru Gojo">
-  <h2>Satoru Gojo</h2>
-  <p>O feiticeiro mais forte que já existiu. Domina as técnicas do Ilimitado e possui o Seis Olhos, capaz de distorcer o espaço e redefinir a batalha.</p>
-</div>
-
     <!-- One Piece -->
     <div class="personagem" data-anime="one-piece" data-id="roronoa-zoro">
       <img src="https://i.postimg.cc/RVZN8hNL/Picsart-25-11-05-19-54-08-438.jpg" alt="Roronoa Zoro">
@@ -225,31 +219,22 @@
     });
   </script>
 <script>
-  // Animação de entrada dos cards
-  window.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.personagem');
-    cards.forEach((card, index) => {
-      card.style.opacity = 0;
-      card.style.transform = 'translateY(30px)';
-      setTimeout(() => {
-        card.style.transition = 'all 0.6s ease-out';
-        card.style.opacity = 1;
-        card.style.transform = 'translateY(0)';
-      }, index * 100); // efeito cascata
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.personagem');
+  cards.forEach(card => {
+    let x = 0, y = 0;
+    let dx = (Math.random() - 0.5) * 2; // velocidade horizontal aleatória
+    let dy = (Math.random() - 0.5) * 2; // velocidade vertical aleatória
 
-    // Hover animado nos cards
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'scale(1.06)';
-        card.style.boxShadow = '0 0 25px rgba(255,121,198,0.6)';
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'scale(1)';
-        card.style.boxShadow = '0 0 20px rgba(255,121,198,0.3)';
-      });
-    });
+    setInterval(() => {
+      x += dx;
+      y += dy;
+      if (Math.abs(x) > 15) dx *= -1;
+      if (Math.abs(y) > 15) dy *= -1;
+      card.style.transform = `translate(${x}px, ${y}px) scale(1.02)`;
+    }, 50);
+  });
+});
 </script>
-
 </body>
 </html>
