@@ -250,5 +250,16 @@
         card.style.boxShadow = '0 0 20px rgba(255,121,198,0.3)';
       });
     });
+/* animação de flutuar */
+@keyframes floatCard {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* ativa o efeito nos cards */
+.personagem {
+  animation: floatCard 3s ease-in-out infinite;
+}
 </body>
 </html>
