@@ -1,447 +1,262 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Galeria — Mangá Style</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <title>Galeria de Personagens</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#070707;
-      --paper-tex:#0e0e0e;
-      --card:#121212;
-      --accent-silver: rgba(220,220,220,0.12);
-      --name-color: #f6f6f6;
-      --muted: #bdbdbd;
-      --border: rgba(255,255,255,0.05);
-      --glass: rgba(255,255,255,0.03);
+    body {
+      background-color: #0a0a0a;
+      /* textura leve de papel */
+      background-image: radial-gradient(#111 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #e1e1e1;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      overflow-x: hidden;
     }
 
-    html,body{height:100%;margin:0;}
-    body{
-      background: var(--bg);
-      color:var(--name-color);
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:0;
-      display:flex;
-      min-height:100vh;
-      box-sizing:border-box;
+    .filtros {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .filtros button {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      background-color: #1f1f1f;
+      color: #e1e1e1;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .filtros button:hover,
+    .filtros button.active {
+      background-color: #444444;
+      color: #ffffff;
     }
 
-    /* textured paper background */
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02)),
-        radial-gradient(circle at 10% 10%, rgba(255,255,255,0.015), transparent 8%),
-        radial-gradient(circle at 90% 80%, rgba(255,255,255,0.01), transparent 6%);
-      pointer-events:none;
-      mix-blend-mode:overlay;
-      z-index:0;
+    .gallery-wrap {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 10px;
+    }
+    .gallery-personagens {
+      display: inline-flex;
+      gap: 30px;
+      /* alinhar verticalmente ao centro */
+      align-items: flex-start;
     }
 
-    /* layout */
-    .wrap{
-      width:100%;
-      max-width:1260px;
-      margin:40px auto;
-      padding:0 20px;
-      z-index:1;
+    .personagem {
+      display: inline-block;
+      background-color: #151515;
+      border-radius: 18px;
+      width: auto;
+      max-width: 300px;
+      text-align: center;
+      padding: 15px;
+      box-shadow: 0 0 15px rgba(255, 121, 198, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .personagem:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 25px rgba(255,121,198,0.6);
+    }
+    .personagem img {
+      width: auto;
+      max-width: 100%;
+      border-radius: 15px;
+      display: block;
+      margin: 0 auto 10px;
+    }
+    .personagem h2 {
+      margin: 10px 0 5px;
+      color: #ff79c6;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.5em;
+    }
+    .personagem p {
+      font-size: 13px;
+      color: #c1c1c1;
+      line-height: 1.4;
     }
 
-    .layout{
-      display:grid;
-      grid-template-columns: 84px 1fr; /* sidebar + content */
-      gap:20px;
-      align-items:start;
+    /* esconder barra de rolagem no WebKit para deixar mais limpinho */
+    .gallery-wrap::-webkit-scrollbar {
+      height: 8px;
     }
-
-    /* minimal sidebar filters */
-    .sidebar{
-      position:sticky;
-      top:40px;
-      align-self:start;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
+    .gallery-wrap::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 4px;
     }
-    .filter-btn{
-      background:var(--glass);
-      border:1px solid var(--border);
-      color:var(--muted);
-      width:72px;
-      height:40px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:12px;
-      border-radius:8px;
-      cursor:pointer;
-      writing-mode:vertical-rl;
-      text-orientation:mixed;
-      transform:rotate(180deg);
-      transition: all 180ms ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    .gallery-wrap::-webkit-scrollbar-track {
+      background: transparent;
     }
-    .filter-btn.active{
-      color:var(--name-color);
-      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      box-shadow: 0 6px 20px rgba(180,180,180,0.06), 0 0 0 1px rgba(255,255,255,0.02) inset;
-    }
-
-    /* gallery grid */
-    .gallery{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap:20px;
-      align-items:start;
-    }
-
-    /* card */
-    .card{
-      background: linear-gradient(180deg, #0f0f0f 0%, #151515 100%);
-      border-radius:12px;
-      padding:12px;
-      border:1px solid var(--border);
-      box-shadow:
-        0 6px 18px rgba(0,0,0,0.6),
-        0 0 0 6px var(--accent-silver) inset; /* subtle silver aura inside */
-      transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms;
-      overflow:hidden;
-      position:relative;
-      width:100%;
-      max-width:320px;
-    }
-
-    .card:hover{
-      transform: translateY(-6px) scale(1.02);
-      box-shadow:
-        0 20px 40px rgba(0,0,0,0.65),
-        0 0 0 8px rgba(255,255,255,0.02) inset;
-    }
-
-    .thumb{
-      width:100%;
-      aspect-ratio: 4/5;
-      object-fit:cover;
-      border-radius:8px;
-      display:block;
-      border:1px solid rgba(255,255,255,0.03);
-      filter:grayscale(0.02) contrast(0.98);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-    }
-
-    .meta{
-      padding:10px 8px 4px;
-      text-align:left;
-    }
-
-    .name{
-      font-family: "Bebas Neue", sans-serif;
-      font-size:20px;
-      letter-spacing:1px;
-      color:var(--name-color);
-      margin:0 0 6px 0;
-      position:relative;
-      display:inline-block;
-      transition: color 160ms;
-      overflow:visible;
-    }
-
-    /* silver blade hover effect on name */
-    .name::after{
-      content:"";
-      position:absolute;
-      left:-10%;
-      top:40%;
-      width:140%;
-      height:2px;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
-      transform:translateX(-120%) skewX(-12deg);
-      transition: transform 260ms ease, opacity 200ms;
-      opacity:0;
-      pointer-events:none;
-    }
-    .card:hover .name::after{
-      transform:translateX(10%) skewX(-12deg) scaleX(1.0);
-      opacity:1;
-    }
-
-    .subtitle{
-      font-size:12px;
-      color:var(--muted);
-      margin:0 0 8px 0;
-    }
-
-    .desc{
-      font-size:13px;
-      color:#cfcfcf;
-      line-height:1.35;
-      height:3.1em; /* two-line clamp approx */
-      overflow:hidden;
-      text-overflow:ellipsis;
-      display:block;
-    }
-
-    /* responsive tweaks */
-    @media (max-width:880px){
-      .layout{grid-template-columns: 1fr;}
-      .sidebar{flex-direction:row; position:static; top:auto; justify-content:center; margin-bottom:14px;}
-      .filter-btn{writing-mode:horizontal-tb; transform:none; width:auto; height:36px; padding:0 10px;}
-    }
-
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="layout">
-      <!-- Sidebar filters -->
-      <div class="sidebar" role="navigation" aria-label="Filtros">
-        <button class="filter-btn active" data-filter="all">TODOS</button>
-        <button class="filter-btn" data-filter="dan-da-dan">DANDADAN</button>
-        <button class="filter-btn" data-filter="jujutsu-kaisen">JUJUTSU</button>
-        <button class="filter-btn" data-filter="one-piece">ONE PIECE</button>
-        <button class="filter-btn" data-filter="onepunch">ONE PUNCH</button>
+
+  <div class="filtros">
+    <button data-filter="all" class="active">Todos</button>
+    <button data-filter="dan-da-dan">Dan da Dan</button>
+    <button data-filter="jujutsu-kaisen">Jujutsu Kaisen</button>
+    <button data-filter="one-piece">One Piece</button>
+    <button data-filter="onepunch">One Punch Man</button>
+  </div>
+
+  <div class="gallery-wrap">
+    <div class="gallery-personagens">
+      <!-- Dan da Dan -->
+      <div class="personagem" data-anime="dan-da-dan" data-id="momo-ayase">
+        <img src="https://i.postimg.cc/c1jx5ZKj/Picsart-25-11-03-00-33-27-851.jpg" alt="Momo Ayase">
+        <h2>Momo Ayase</h2>
+        <p>Estudante que acredita em fantasmas, mas não em alienígenas. Após ser abduzida, desperta poderes psíquicos e enfrenta o sobrenatural.</p>
       </div>
 
-      <!-- Gallery -->
-      <main class="gallery" id="gallery">
-        <!-- Dan da Dan -->
-        <article class="card personagem" data-anime="dan-da-dan" data-id="momo-ayase">
-          <img class="thumb" src="https://i.postimg.cc/c1jx5ZKj/Picsart-25-11-03-00-33-27-851.jpg" alt="Momo Ayase">
-          <div class="meta">
-            <h3 class="name">Momo Ayase</h3>
-            <div class="subtitle">Dandadan — Psíquica</div>
-            <p class="desc">Estudante que acreditava em fantasmas; após abdução alienígena, desperta poder psíquico e passa a visualizar auras como mãos gigantes para manipular.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="jin-enjoji">
+        <img src="https://i.postimg.cc/wTyv63Kc/Picsart-25-11-03-00-32-36-858.jpg" alt="Jin Enjoji">
+        <h2>Jin Enjoji</h2>
+        <p>Amigo de infância da Momo. Torna-se envolvido por uma casa amaldiçoada e forças sobrenaturais.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="jin-enjoji">
-          <img class="thumb" src="https://i.postimg.cc/wTyv63Kc/Picsart-25-11-03-00-32-36-858.jpg" alt="Jin Enjoji">
-          <div class="meta">
-            <h3 class="name">Jin Enjoji (Jiji)</h3>
-            <div class="subtitle">Dandadan — Possuído</div>
-            <p class="desc">Amigo de infância da Momo; acaba possuído pelo espírito 'Mau Olhado' quando se envolve em eventos sobrenaturais relacionados à casa amaldiçoada.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="enenra">
+        <img src="https://i.postimg.cc/3NwkjZcR/Picsart-25-11-03-00-36-00-583.jpg" alt="Enenra">
+        <h2>Enenra</h2>
+        <p>Yōkai da fumaça que se torna intangível e ataca no invisível, trazendo terror além da forma.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="enenra">
-          <img class="thumb" src="https://i.postimg.cc/3NwkjZcR/Picsart-25-11-03-00-36-00-583.jpg" alt="Enenra">
-          <div class="meta">
-            <h3 class="name">Enenra</h3>
-            <div class="subtitle">Dandadan — Yōkai</div>
-            <p class="desc">Yōkai de fumaça, intangível e capaz de atacar por onde a visão não alcança; presença etérea e perigosa.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="mau-olhado">
+        <img src="https://i.postimg.cc/jqGT4X9J/Picsart-25-11-03-00-40-45-978.jpg" alt="Mau Olhado">
+        <h2>Mau Olhado</h2>
+        <p>Espírito vingativo que habita o corpo de Jiji; manipula maldições e almas dentro de sua “casa demoníaca”.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="mau-olhado">
-          <img class="thumb" src="https://i.postimg.cc/jqGT4X9J/Picsart-25-11-03-00-40-45-978.jpg" alt="Mau Olhado">
-          <div class="meta">
-            <h3 class="name">Mau Olhado</h3>
-            <div class="subtitle">Dandadan — Espírito</div>
-            <p class="desc">Espírito vingativo que domina e manipula maldições dentro da casa; causa terror ao possuir e controlar almas.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="reiko-kashima">
+        <img src="https://i.postimg.cc/4dQcQy4K/Picsart-25-11-03-00-37-03-585.jpg" alt="Reiko Kashima">
+        <h2>Reiko Kashima</h2>
+        <p>Yōkai dos espelhos que prende pessoas e exércitos em dimensões refletidas e ataca por superfícies de vidro.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="reiko-kashima">
-          <img class="thumb" src="https://i.postimg.cc/4dQcQy4K/Picsart-25-11-03-00-37-03-585.jpg" alt="Reiko Kashima">
-          <div class="meta">
-            <h3 class="name">Reiko Kashima</h3>
-            <div class="subtitle">Dandadan — Yōkai</div>
-            <p class="desc">Yōkai dos espelhos: aprisiona inimigos em dimensões refletidas e pode atacar através de superfícies de vidro.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="unji-zuma">
+        <img src="https://i.postimg.cc/3rZjgSdR/Picsart-25-11-03-00-41-38-577.jpg" alt="Unji Zuma">
+        <h2>Unji Zuma</h2>
+        <p>Líder de gangue que leva poderes do yōkai Umbrella Boy e entra em missão para vencer um jogo amaldiçoado.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="unji-zuma">
-          <img class="thumb" src="https://i.postimg.cc/3rZjgSdR/Picsart-25-11-03-00-41-38-577.jpg" alt="Unji Zuma">
-          <div class="meta">
-            <h3 class="name">Unji Zuma</h3>
-            <div class="subtitle">Dandadan — Gang Leader</div>
-            <p class="desc">Líder de gangue que firma pacto com um yōkai; entra no jogo amaldiçoado em busca de poder e vitória.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="rin-sawaki">
+        <img src="https://i.postimg.cc/YCPzvvj8/Picsart-25-11-03-00-35-03-843.jpg" alt="Rin Sawaki">
+        <h2>Rin Sawaki</h2>
+        <p>Estudante exemplar que manipula gravidade ao cantar. Envolvida em casos sobrenaturais enquanto se mantém com postura firme.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="rin-sawaki">
-          <img class="thumb" src="https://i.postimg.cc/YCPzvvj8/Picsart-25-11-03-00-35-03-843.jpg" alt="Rin Sawaki">
-          <div class="meta">
-            <h3 class="name">Rin Sawaki</h3>
-            <div class="subtitle">Dandadan — Cantora / Gravidade</div>
-            <p class="desc">Estudante que utiliza canto para manipular gravidade; postura séria e envolvimento direto em conflitos sobrenaturais.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="count-saint-germain">
+        <img src="https://i.postimg.cc/90BB01qr/Picsart-25-11-03-00-39-41-882.jpg" alt="Count Saint-Germain">
+        <h2>Count Saint-Germain</h2>
+        <p>Nobre colecionador do paranormal, que busca reunir poderes de yōkai, artefatos e alienígenas para alcançar o supremo.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="count-saint-germain">
-          <img class="thumb" src="https://i.postimg.cc/90BB01qr/Picsart-25-11-03-00-39-41-882.jpg" alt="Count Saint-Germain">
-          <div class="meta">
-            <h3 class="name">Count Saint-Germain</h3>
-            <div class="subtitle">Dandadan — Colecionador</div>
-            <p class="desc">Nobre colecionador de objetos paranormais; busca unir poder de yōkai, artefatos e conhecimento proibido.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="vamola">
+        <img src="https://i.postimg.cc/YCCdGcR2/Picsart-25-11-03-00-34-16-310.jpg" alt="Vamola">
+        <h2>Vamola</h2>
+        <p>Última sobrevivente da raça suméria. Pilota uma armadura poderosa e luta ao lado dos protagonistas.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="vamola">
-          <img class="thumb" src="https://i.postimg.cc/YCCdGcR2/Picsart-25-11-03-00-34-16-310.jpg" alt="Vamola">
-          <div class="meta">
-            <h3 class="name">Vamola</h3>
-            <div class="subtitle">Dandadan — Guerreira</div>
-            <p class="desc">Sobrevivente de uma raça antiga; pilota uma armadura poderosa e apoia os protagonistas em combates extremos.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="aira-shiratori">
+        <img src="https://i.postimg.cc/mDHXLQw7/Picsart-25-11-03-00-38-41-747.jpg" alt="Aira Shiratori">
+        <h2>Aira Shiratori</h2>
+        <p>Popular estudante que desperta habilidades yōkai ligadas à acrobacia e combate; inicialmente rival, une-se aos protagonistas.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="aira-shiratori">
-          <img class="thumb" src="https://i.postimg.cc/mDHXLQw7/Picsart-25-11-03-00-38-41-747.jpg" alt="Aira Shiratori">
-          <div class="meta">
-            <h3 class="name">Aira Shiratori</h3>
-            <div class="subtitle">Dandadan — Acrobata / Yokai</div>
-            <p class="desc">Hábil em acrobacias e combate; inicialmente rival, torna-se aliada dos protagonistas contra ameaças sobrenaturais.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="okarun">
+        <img src="https://i.postimg.cc/65NSQ1FN/Picsart-25-11-03-00-28-53-418.jpg" alt="Okarun">
+        <h2>Okarun</h2>
+        <p>Estudante obcecado pelo oculto; acreditava em alienígenas, não em fantasmas — até que o mundo se virou de cabeça pra baixo.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="okarun">
-          <img class="thumb" src="https://i.postimg.cc/65NSQ1FN/Picsart-25-11-03-00-28-53-418.jpg" alt="Okarun">
-          <div class="meta">
-            <h3 class="name">Okarun</h3>
-            <div class="subtitle">Dandadan — Crente em Aliens</div>
-            <p class="desc">Ken Takakura, obcecado por alienígenas; seu ceticismo vira mundo real quando cruza com o oculto e ganha poderes.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="koki-yukishiro">
+        <img src="https://i.postimg.cc/SxdH37Tx/Picsart-25-11-03-00-25-39-215.jpg" alt="Kōki Yukishiro">
+        <h2>Kōki Yukishiro</h2>
+        <p>Aluna que comanda pequenos seres chamados pygmies e os usa estrategicamente contra adversários.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="koki-yukishiro">
-          <img class="thumb" src="https://i.postimg.cc/SxdH37Tx/Picsart-25-11-03-00-25-39-215.jpg" alt="Kōki Yukishiro">
-          <div class="meta">
-            <h3 class="name">Kōki Yukishiro</h3>
-            <div class="subtitle">Dandadan — Summoner</div>
-            <p class="desc">Estudante que comanda pequenos seres (pygmies) e os usa estrategicamente em combate.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="dan-da-dan" data-id="jiji-mau-olhado">
+        <img src="https://i.postimg.cc/Qtw2S86H/Picsart-25-11-03-00-37-52-262.jpg" alt="Jiji & Mau Olhado">
+        <h2>Jiji & Mau Olhado</h2>
+        <p>Fusão poderosa que combina Jiji e o Mau Olhado, dominando maldições e manipulando almas.</p>
+      </div>
 
-        <article class="card personagem" data-anime="dan-da-dan" data-id="jiji-mau-olhado">
-          <img class="thumb" src="https://i.postimg.cc/Qtw2S86H/Picsart-25-11-03-00-37-52-262.jpg" alt="Jiji & Mau Olhado">
-          <div class="meta">
-            <h3 class="name">Jiji & Mau Olhado</h3>
-            <div class="subtitle">Dandadan — Fusão</div>
-            <p class="desc">Fusão que combina Jiji e o espírito Mau Olhado, tornando-os uma força de maldição e manipulação de almas.</p>
-          </div>
-        </article>
+      <!-- Jujutsu Kaisen -->
+      <div class="personagem" data-anime="jujutsu-kaisen" data-id="itadori-yuuji">
+        <img src="https://i.postimg.cc/Gmwwwmxm/29-Sem-Titulo-20251102234830.png" alt="Itadori Yuuji">
+        <h2>Itadori Yuuji</h2>
+        <p>Estudante que ingeriu o espírito Ryomen Sukuna e luta contra maldições. Corajoso e leal aos amigos.</p>
+      </div>
 
-        <!-- Jujutsu Kaisen -->
-        <article class="card personagem" data-anime="jujutsu-kaisen" data-id="itadori-yuuji">
-          <img class="thumb" src="https://i.postimg.cc/Gmwwwmxm/29-Sem-Titulo-20251102234830.png" alt="Itadori Yuuji">
-          <div class="meta">
-            <h3 class="name">Itadori Yuuji</h3>
-            <div class="subtitle">Jujutsu Kaisen — Protagonista</div>
-            <p class="desc">Estudante que ingeriu o dedo de Sukuna; hospedeiro do rei das maldições, luta para proteger amigos e enfrentar maldições.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="jujutsu-kaisen" data-id="hiromi-higuruma">
+        <img src="https://i.postimg.cc/TYL8yD30/Picsart-25-11-03-00-31-33-155.jpg" alt="Hiromi Higuruma">
+        <h2>Hiromi Higuruma</h2>
+        <p>Feiticeiro que utilizou uma técnica amaldiçoada para “julgar” adversários com um martelo mutável que abre cortes no espaço.</p>
+      </div>
 
-        <article class="card personagem" data-anime="jujutsu-kaisen" data-id="hiromi-higuruma">
-          <img class="thumb" src="https://i.postimg.cc/TYL8yD30/Picsart-25-11-03-00-31-33-155.jpg" alt="Hiromi Higuruma">
-          <div class="meta">
-            <h3 class="name">Hiromi Higuruma</h3>
-            <div class="subtitle">Jujutsu — Juiz</div>
-            <p class="desc">Usuário de técnica amaldiçoada que cria uma “corte” sobrenatural para julgar inimigos com efeitos perigosos.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="jujutsu-kaisen" data-id="choso">
+        <img src="https://i.postimg.cc/MTcXfnDg/34-Sem-Titulo-20251108035130.png" alt="Choso">
+        <h2>Choso</h2>
+        <p>Maldição que domina o sangue; membro do grupo Death Painting Wombs com vínculo intenso aos irmãos.</p>
+      </div>
 
-        <article class="card personagem" data-anime="jujutsu-kaisen" data-id="choso">
-          <img class="thumb" src="https://i.postimg.cc/MTcXfnDg/34-Sem-Titulo-20251108035130.png" alt="Choso">
-          <div class="meta">
-            <h3 class="name">Choso</h3>
-            <div class="subtitle">Jujutsu — Sangue</div>
-            <p class="desc">Entidade ligada à manipulação de sangue; membro dos Death Painting Wombs com laços fortes entre irmãos.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="jujutsu-kaisen" data-id="satoru-gojo">
+        <img src="https://i.postimg.cc/8PKzpCkd/34-Sem-Titulo-20251107024300.png" alt="Satoru Gojo">
+        <h2>Satoru Gojo</h2>
+        <p>Feiticeiro mais forte que já existiu; domina as técnicas do Ilimitado e possui os Seis Olhos, podendo distorcer o espaço e redefinir a batalha.</p>
+      </div>
 
-        <article class="card personagem" data-anime="jujutsu-kaisen" data-id="satoru-gojo">
-          <img class="thumb" src="https://i.postimg.cc/8PKzpCkd/34-Sem-Titulo-20251107024300.png" alt="Satoru Gojo">
-          <div class="meta">
-            <h3 class="name">Satoru Gojo</h3>
-            <div class="subtitle">Jujutsu — Classe Especial</div>
-            <p class="desc">Feiticeiro de classe especial, reconhecido como o mais forte; domina o Limitless e os Six Eyes, controlando espaço e força.</p>
-          </div>
-        </article>
+      <div class="personagem" data-anime="jujutsu-kaisen" data-id="toji-fushiguro">
+        <img src="https://i.postimg.cc/mZyR3V97/37-Sem-Titulo-20251112174958.png" alt="Toji Fushiguro">
+        <h2>Toji Fushiguro</h2>
+        <p>Assassino temido, sem energia amaldiçoada, mas com reflexos e força sobre-humanos. Conhecido como “Assassino de Feiticeiros”.</p>
+      </div>
 
-        <article class="card personagem" data-anime="jujutsu-kaisen" data-id="toji-fushiguro">
-          <img class="thumb" src="https://i.postimg.cc/mZyR3V97/37-Sem-Titulo-20251112174958.png" alt="Toji Fushiguro">
-          <div class="meta">
-            <h3 class="name">Toji Fushiguro</h3>
-            <div class="subtitle">Jujutsu — Assassino</div>
-            <p class="desc">Ex-assassino conhecido como “Sorcerer Killer”; nascido sem energia amaldiçoada, destaca-se por força e reflexos sobre-humanos.</p>
-          </div>
-        </article>
+      <!-- One Piece -->
+      <div class="personagem" data-anime="one-piece" data-id="roronoa-zoro">
+        <img src="https://i.postimg.cc/RVZN8hNL/Picsart-25-11-05-19-54-08-438.jpg" alt="Roronoa Zoro">
+        <h2>Roronoa Zoro</h2>
+        <p>Espadachim dos Chapéus de Palha. Mestre no estilo Santoryū, empunha três espadas com determinação inabalável e senso de honra que corta até o próprio destino.</p>
+      </div>
 
-        <!-- One Piece -->
-        <article class="card personagem" data-anime="one-piece" data-id="roronoa-zoro">
-          <img class="thumb" src="https://i.postimg.cc/RVZN8hNL/Picsart-25-11-05-19-54-08-438.jpg" alt="Roronoa Zoro">
-          <div class="meta">
-            <h3 class="name">Roronoa Zoro</h3>
-            <div class="subtitle">One Piece — Espadachim</div>
-            <p class="desc">Espadachim dos Chapéus de Palha; mestre do Santoryū (três espadas), com determinação inabalável e senso de honra feroz.</p>
-          </div>
-        </article>
+      <!-- One Punch Man -->
+      <div class="personagem" data-anime="onepunch" data-id="garou">
+        <img src="https://i.postimg.cc/JhWWCzmr/Picsart-25-11-03-00-23-50-498.jpg" alt="Garou">
+        <h2>Garou</h2>
+        <p>O Caçador de Heróis. Especialista em artes marciais, força e agilidade incríveis; sempre desafiando heróis e evoluindo como lutador.</p>
+      </div>
 
-        <!-- One Punch Man -->
-        <article class="card personagem" data-anime="onepunch" data-id="garou">
-          <img class="thumb" src="https://i.postimg.cc/JhWWCzmr/Picsart-25-11-03-00-23-50-498.jpg" alt="Garou">
-          <div class="meta">
-            <h3 class="name">Garou</h3>
-            <div class="subtitle">One Punch Man — Caçador de Heróis</div>
-            <p class="desc">Ex-discípulo que busca desafiar heróis; especialista em artes marciais e em rápida evolução de estilo e força.</p>
-          </div>
-        </article>
-
-      </main>
     </div>
   </div>
 
   <script>
-    // filtros
-    (function(){
-      const buttons = document.querySelectorAll('.filter-btn');
-      const cards = Array.from(document.querySelectorAll('.personagem'));
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.filtros button');
+    const personagens = document.querySelectorAll('.personagem');
 
-      function setFilter(filter){
-        buttons.forEach(b=>b.classList.toggle('active', b.getAttribute('data-filter')===filter));
-        cards.forEach(c=>{
-          c.style.display = (filter==='all' || c.getAttribute('data-anime')===filter) ? 'block' : 'none';
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+        personagens.forEach(p => {
+          p.style.display =
+            filter === 'all' || p.getAttribute('data-anime') === filter
+            ? 'inline-block'
+            : 'none';
         });
-      }
-
-      buttons.forEach(btn=>{
-        btn.addEventListener('click', ()=> setFilter(btn.getAttribute('data-filter')));
       });
-
-      // inicial
-      setFilter('all');
-    })();
-
-    // leve flutuação — mais rápida e sutil
-    (function(){
-      const cards = document.querySelectorAll('.personagem');
-      cards.forEach(card=>{
-        let ox = (Math.random()-0.5)*8;
-        let oy = (Math.random()-0.5)*8;
-        let dx = (Math.random()-0.5)*0.6;
-        let dy = (Math.random()-0.5)*0.6;
-        const max = 8;
-
-        function frame(){
-          ox += dx; oy += dy;
-          if(Math.abs(ox)>max) dx *= -1;
-          if(Math.abs(oy)>max) dy *= -1;
-          card.style.transform = `translate(${ox}px, ${oy}px) scale(1.02)`;
-          requestAnimationFrame(frame);
-        }
-        frame();
-      });
-    })();
+    });
+  });
   </script>
+
 </body>
 </html>
