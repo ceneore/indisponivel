@@ -15,6 +15,7 @@
       padding: 20px;
       overflow-x: hidden;
     }
+
     .filtros {
       text-align: center;
       margin-bottom: 20px;
@@ -36,6 +37,7 @@
       background-color: #444444;
       color: #ffffff;
     }
+
     .gallery-wrap {
       overflow-x: auto;
       white-space: nowrap;
@@ -46,11 +48,12 @@
       gap: 30px;
       align-items: flex-start;
     }
+
     .personagem {
       display: inline-block;
       background-color: #151515;
       border-radius: 18px;
-      width: 260px;
+      width: auto;
       text-align: center;
       padding: 15px;
       box-shadow: 0 0 15px rgba(255,255,255,0.15);
@@ -62,9 +65,11 @@
       box-shadow: 0 0 25px rgba(255,255,255,0.3);
     }
     .personagem img {
-      width: 100%;
+      width: auto;
       height: auto;
-      object-fit: contain;  /* mantém proporção da imagem e evita “achatamento” */ 
+      max-width: 100%;
+      /* se quiser limitar altura para manter proporção visual: */
+      max-height: 300px;
       border-radius: 15px;
       display: block;
       margin: 0 auto 10px;
@@ -74,10 +79,11 @@
       color: #c1c1c1;
       font-family: 'Quicksand', sans-serif;
       font-size: 1.4em;
-      overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      overflow: hidden;
     }
+
     .gallery-wrap::-webkit-scrollbar {
       height: 8px;
     }
@@ -170,12 +176,12 @@
 
       <!-- Jujutsu Kaisen -->
       <div class="personagem" data-anime="jujutsu-kaisen" data-id="itadori-yuuji">
-        <img src="https://i-postimg.cc/Gmwwwmxm/29-Sem-Titulo-20251102234830.png" alt="Itadori Yuuji">
+        <img src="https://i.postimg.cc/Gmwwwmxm/29-Sem-Titulo-20251102234830.png" alt="Itadori Yuuji">
         <h2>Itadori Yuuji</h2>
       </div>
 
       <div class="personagem" data-anime="jujutsu-kaisen" data-id="hiromi-higuruma">
-        <img src="https://i-postimg.cc/TYL8yD30/Picsart-25-11-03-00-31-33-155.jpg" alt="Hiromi Higuruma">
+        <img src="https://i.postimg.cc/TYL8yD30/Picsart-25-11-03-00-31-33-155.jpg" alt="Hiromi Higuruma">
         <h2>Hiromi Higuruma</h2>
       </div>
 
