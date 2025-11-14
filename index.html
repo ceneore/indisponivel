@@ -4,110 +4,9 @@
   <meta charset="UTF-8">
   <title>Galeria de Personagens</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>.anime-gallery {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  padding: 20px 0;
-}
 
-.anime-card {
-  min-width: 320px;
-  height: 180px;
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-  background: #000;
-}
+  <style>
 
-.video-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.video-wrapper iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  object-fit: cover;
-  pointer-events: none;
-}
-.anime-carousel {
-  margin-top: 70px;
-  text-align: center;
-}
-
-.anime-carousel h1 {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 2em;
-  color: #e1e1e1;
-  margin-bottom: 25px;
-}
-
-.anime-gallery {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  gap: 25px;
-  padding-bottom: 15px;
-  justify-content: flex-start;
-}
-
-.anime-gallery::-webkit-scrollbar {
-  height: 10px;
-}
-
-.anime-gallery::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 10px;
-}
-
-.anime-gallery::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-.anime-card {
-  position: relative;
-  flex: 0 0 auto;
-  width: 400px;
-  height: 230px;
-  border-radius: 20px;
-  overflow: hidden;
-  background-color: #151515;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.anime-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
-}
-
-.anime-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.8);
-}
-
-.anime-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.6);
-}
-
-.anime-info h2 {
-  color: #fff;
-  font-family: 'Quicksand', sans-serif;
-  font-size: 1.3em;
-  margin: 0;
-}
     body {
       background-color: #0a0a0a;
       background-image: radial-gradient(#111 1px, transparent 1px);
@@ -119,7 +18,7 @@
       overflow-x: hidden;
     }
 
-    /* carrossel dos filtros */
+    /* FILTROS */
     .filtros-wrap {
       overflow-x: auto;
       white-space: nowrap;
@@ -154,6 +53,7 @@
       transform: scale(1.05);
     }
 
+    /* GALERIA DE PERSONAGENS */
     .gallery-wrap {
       overflow-x: auto;
       white-space: nowrap;
@@ -167,13 +67,8 @@
       transition: opacity 0.5s ease;
     }
 
-    .fade-out {
-      opacity: 0;
-    }
-
-    .fade-in {
-      opacity: 1;
-    }
+    .fade-out { opacity: 0; }
+    .fade-in { opacity: 1; }
 
     .personagem {
       display: inline-block;
@@ -181,13 +76,13 @@
       border-radius: 18px;
       text-align: center;
       padding: 10px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
       transition: transform 0.3s, box-shadow 0.3s;
     }
 
     .personagem:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 25px rgba(255,255,255,0.6);
     }
 
     .personagem img {
@@ -207,27 +102,83 @@
       font-size: 1.2em;
     }
 
-    /* scroll bonito */
-    .gallery-wrap::-webkit-scrollbar,
-    .filtros-wrap::-webkit-scrollbar {
-      height: 8px;
+    /* CARROSSEL DE ANIMES */
+    .anime-carousel {
+      margin-top: 70px;
+      text-align: center;
     }
 
-    .gallery-wrap::-webkit-scrollbar-thumb,
-    .filtros-wrap::-webkit-scrollbar-thumb {
-      background: #444;
-      border-radius: 4px;
+    .anime-carousel h1 {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 2em;
+      color: #e1e1e1;
+      margin-bottom: 25px;
     }
 
-    .gallery-wrap::-webkit-scrollbar-track,
-    .filtros-wrap::-webkit-scrollbar-track {
-      background: transparent;
+    .anime-gallery {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 25px;
+      padding-bottom: 15px;
     }
+
+    .anime-card {
+      position: relative;
+      flex: 0 0 auto;
+      width: 400px;
+      height: 230px;
+      border-radius: 20px;
+      overflow: hidden;
+      background-color: #151515;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .anime-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255,255,255,0.4);
+    }
+
+    .video-wrapper {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .anime-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px;
+      background: rgba(0,0,0,0.6);
+      z-index: 2;
+    }
+
+    .anime-info h2 {
+      color: #fff;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.3em;
+      margin: 0;
+    }
+
   </style>
 </head>
+
 <body>
 
-  <!-- Filtros em carrossel -->
+  <!-- FILTROS -->
   <div class="filtros-wrap">
     <div class="filtros">
       <button data-filter="all" class="active">Todos</button>
@@ -238,10 +189,11 @@
     </div>
   </div>
 
-  <!-- Carrossel de personagens -->
+  <!-- PERSONAGENS -->
   <div class="gallery-wrap">
     <div class="gallery-personagens fade-in">
-      <!-- Dan da Dan -->
+
+      <!-- DAN DA DAN -->
       <div class="personagem" data-anime="dan-da-dan"><img src="https://i.postimg.cc/c1jx5ZKj/Picsart-25-11-03-00-33-27-851.jpg"><h2>Momo Ayase</h2></div>
       <div class="personagem" data-anime="dan-da-dan"><img src="https://i.postimg.cc/wTyv63Kc/Picsart-25-11-03-00-32-36-858.jpg"><h2>Jin Enjoji</h2></div>
       <div class="personagem" data-anime="dan-da-dan"><img src="https://i.postimg.cc/3NwkjZcR/Picsart-25-11-03-00-36-00-583.jpg"><h2>Enenra</h2></div>
@@ -256,115 +208,71 @@
       <div class="personagem" data-anime="dan-da-dan"><img src="https://i.postimg.cc/SxdH37Tx/Picsart-25-11-03-00-25-39-215.jpg"><h2>Kōki Yukishiro</h2></div>
       <div class="personagem" data-anime="dan-da-dan"><img src="https://i.postimg.cc/Qtw2S86H/Picsart-25-11-03-00-37-52-262.jpg"><h2>Jiji & Mau Olhado</h2></div>
 
-      <!-- Jujutsu Kaisen -->
+      <!-- JUJUTSU KAISEN -->
       <div class="personagem" data-anime="jujutsu-kaisen"><img src="https://i.postimg.cc/Gmwwwmxm/29-Sem-Titulo-20251102234830.png"><h2>Itadori Yuuji</h2></div>
       <div class="personagem" data-anime="jujutsu-kaisen"><img src="https://i.postimg.cc/TYL8yD30/Picsart-25-11-03-00-31-33-155.jpg"><h2>Hiromi Higuruma</h2></div>
       <div class="personagem" data-anime="jujutsu-kaisen"><img src="https://i.postimg.cc/tJ6k9ZJd/42-Sem-Titulo-20251112231853.png"><h2>Choso</h2></div>
       <div class="personagem" data-anime="jujutsu-kaisen"><img src="https://i.postimg.cc/8PKzpCkd/34-Sem-Titulo-20251107024300.png"><h2>Satoru Gojo</h2></div>
       <div class="personagem" data-anime="jujutsu-kaisen"><img src="https://i.postimg.cc/mZyR3V97/37-Sem-Titulo-20251112174958.png"><h2>Toji Fushiguro</h2></div>
-      <div class="personagem" data-anime="jujutsu-kaisen">
-  <img src="https://i.postimg.cc/s2kFRHBb/38-Sem-Titulo-20251112191937.png" alt="Sukuna"><h2>Ryomen Sukuna</h2>
-</div>
-<div class="personagem" data-anime="jujutsu-kaisen">
-  <img src="https://i.postimg.cc/Gm1nCbBr/39-Sem-Titulo-20251112222515.png" alt="Megumi Fushiguro">
-  <h2>Megumi Fushiguro</h2>
-</div>
-<div class="personagem" data-anime="jujutsu-kaisen">
-  <img src="https://i.postimg.cc/sDGVYVG7/43-Sem-Titulo-20251112235629.png" alt="Yuta Okkotsu">
-  <h2>Yuta Okkotsu</h2>
-</div>
+      <div class="personagem" data-anime="jujutsu-kaisen"><img src="https://i.postimg.cc/s2kFRHBb/38-Sem-Titulo-20251112191937.png"><h2>Ryomen Sukuna</h2></div>
+      <div class="personagem" data-anime="jujutsu-kaisen"><img src="https://i.postimg.cc/Gm1nCbBr/39-Sem-Titulo-20251112222515.png"><h2>Megumi Fushiguro</h2></div>
+      <div class="personagem" data-anime="jujutsu-kaisen"><img src="https://i.postimg.cc/sDGVYVG7/43-Sem-Titulo-20251112235629.png"><h2>Yuta Okkotsu</h2></div>
 
-      <!-- One Piece -->
+      <!-- ONE PIECE -->
       <div class="personagem" data-anime="one-piece"><img src="https://i.postimg.cc/RVZN8hNL/Picsart-25-11-05-19-54-08-438.jpg"><h2>Roronoa Zoro</h2></div>
 
-      <!-- One Punch Man -->
+      <!-- ONE PUNCH MAN -->
       <div class="personagem" data-anime="onepunch"><img src="https://i.postimg.cc/JhWWCzmr/Picsart-25-11-03-00-23-50-498.jpg"><h2>Garou</h2></div>
+      <div class="personagem" data-anime="onepunch"><img src="https://i.postimg.cc/g2tTzgZH/59-Sem-Titulo-20251113131616.png"><h2>Genos</h2></div>
+      <div class="personagem" data-anime="onepunch"><img src="https://i.postimg.cc/MZCtztYg/66-Sem-Titulo-20251113145108.png"><h2>Tatsumaki</h2></div>
+      <div class="personagem" data-anime="onepunch"><img src="https://i.postimg.cc/2yY6wVvN/68-Sem-Titulo-20251113163136.png"><h2>Saitama</h2></div>
+
     </div>
-      <div class="personagem" data-anime="onepunch">
-  <img src="https://i.postimg.cc/g2tTzgZH/59-Sem-Titulo-20251113131616.png" alt="Genos">
-  <h2>Genos</h2>
-</div>
-
-<div class="personagem" data-anime="onepunch">
-  <img src="https://i.postimg.cc/MZCtztYg/66-Sem-Titulo-20251113145108.png" alt="Tatsumaki">
-  <h2>Tatsumaki</h2>
-</div>
-
-<div class="personagem" data-anime="onepunch">
-  <img src="https://i.postimg.cc/2yY6wVvN/68-Sem-Titulo-20251113163136.png" alt="Saitama">
-  <h2>Saitama</h2>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- Carrossel de Animes -->
-<section class="anime-carousel">
-  <h1>Animes</h1>
-  <div class="anime-gallery">
-
-    <!-- Demon Slayer -->
-    <div class="anime-card">
-      <div class="video-wrapper">
-        <iframe src="https://streamable.com/e/awy0sz?autoplay=1&loop=1&muted=1&nocontrols=1"></iframe>
-      </div>
-      <div class="anime-info"><h2>Demon Slayer: Kimetsu no Yaiba</h2></div>
-    </div>
-
-    <!-- Dan da Dan -->
-    <div class="anime-card">
-      <div class="video-wrapper">
-        <iframe src="https://streamable.com/e/1fv2er?autoplay=1&loop=1&muted=1&nocontrols=1"></iframe>
-      </div>
-      <div class="anime-info"><h2>Dan da Dan</h2></div>
-    </div>
-
-    <!-- Oshi No Ko -->
-    <div class="anime-card">
-      <div class="video-wrapper">
-        <iframe src="https://streamable.com/e/4ck9ch?autoplay=1&loop=1&muted=1&nocontrols=1"></iframe>
-      </div>
-      <div class="anime-info"><h2>Oshi No Ko</h2></div>
-    </div>
-
-    <!-- Black Clover -->
-    <div class="anime-card">
-      <div class="video-wrapper">
-        <iframe src="https://streamable.com/e/xlxfio?autoplay=1&loop=1&muted=1&nocontrols=1"></iframe>
-      </div>
-      <div class="anime-info"><h2>Black Clover</h2></div>
-    </div>
-
-    <!-- Jujutsu Kaisen -->
-    <div class="anime-card">
-      <div class="video-wrapper">
-        <iframe src="https://streamable.com/e/hvmsrc?autoplay=1&loop=1&muted=1&nocontrols=1"></iframe>
-      </div>
-      <div class="anime-info"><h2>Jujutsu Kaisen</h2></div>
-    </div>
-
-    <!-- Os outros animes você só troca aqui depois -->
-    <div class="anime-card">
-      <div class="video-wrapper">
-        <iframe src=""></iframe>
-      </div>
-      <div class="anime-info"><h2>Hunter x Hunter</h2></div>
-    </div>
-
   </div>
-</section>
 
-<style>
-  .anime-gallery { display: flex; overflow-x: auto; gap: 25px; padding-bottom: 15px; justify-content: flex-start; }
-  .anime-card { position: relative; flex: 0 0 auto; width: 400px; height: 230px; border-radius: 20px; overflow: hidden; background-color: #151515; box-shadow: 0 0 15px rgba(255,255,255,0.2); transition: transform 0.3s, box-shadow 0.3s; }
-  .anime-card:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(255,255,255,0.4); }
-  .anime-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 15px; background: rgba(0,0,0,0.6); z-index:2; }
-  .anime-info h2 { color: #fff; font-family: 'Quicksand', sans-serif; font-size: 1.3em; margin: 0; }
-  .video-wrapper { width: 100%; height: 100%; }
-  .video-wrapper iframe { width: 100%; height: 100%; object-fit: cover; border: none; display: block; }
-</style>
+  <!-- CARROSSEL DE ANIMES COM VÍDEOS -->
+  <section class="anime-carousel">
+    <h1>Animes</h1>
+
+    <div class="anime-gallery">
+
+      <div class="anime-card">
+        <div class="video-wrapper">
+          <iframe src="https://streamable.com/e/awy0sz?autoplay=1&loop=1&muted=1&nocontrols=1"></iframe>
+        </div>
+        <div class="anime-info"><h2>Demon Slayer</h2></div>
+      </div>
+
+      <div class="anime-card">
+        <div class="video-wrapper">
+          <iframe src="https://streamable.com/e/1fv2er?autoplay=1&loop=1&muted=1&nocontrols=1"></iframe>
+        </div>
+        <div class="anime-info"><h2>Dan da Dan</h2></div>
+      </div>
+
+      <div class="anime-card">
+        <div class="video-wrapper">
+          <iframe src="https://streamable.com/e/xlxfio?autoplay=1&loop=1&muted=1&nocontrols=1"></iframe>
+        </div>
+        <div class="anime-info"><h2>Black Clover</h2></div>
+      </div>
+
+      <div class="anime-card">
+        <div class="video-wrapper">
+          <iframe src="https://streamable.com/e/hvmsrc?autoplay=1&loop=1&muted=1&nocontrols=1"></iframe>
+        </div>
+        <div class="anime-info"><h2>Jujutsu Kaisen</h2></div>
+      </div>
+
+      <div class="anime-card">
+        <div class="video-wrapper">
+          <iframe src=""></iframe>
+        </div>
+        <div class="anime-info"><h2>Hunter x Hunter</h2></div>
+      </div>
+
+    </div>
+  </section>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -374,12 +282,14 @@
 
       buttons.forEach(btn => {
         btn.addEventListener('click', () => {
+
           buttons.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
+
           const filter = btn.getAttribute('data-filter');
 
-          // animação suave
           gallery.classList.add('fade-out');
+
           setTimeout(() => {
             personagens.forEach(p => {
               p.style.display =
@@ -387,9 +297,12 @@
                   ? 'inline-block'
                   : 'none';
             });
+
             gallery.classList.remove('fade-out');
             gallery.classList.add('fade-in');
+
           }, 300);
+
         });
       });
     });
